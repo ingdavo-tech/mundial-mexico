@@ -99,7 +99,7 @@ function recompute(){
    if(i<thirds.length-1&&tiedBeyondGF(t,thirds[i+1]))t.flag=true;});
  const top8=thirds.slice(0,8),qg=top8.map(t=>t.g).sort(),combo=qg.join('');
  let row=null,rnum=null;for(const n in ROWSETS){if(ROWSETS[n]===combo){row=ANNEXC[n];rnum=n;break;}}
- renderThirds(thirds,row);
+ renderThirds(thirds,rnum);
  const bn=document.getElementById('mexOpp'),mt=document.getElementById('mexMeta');
  if(row){const slot=rowSlot(rnum,'1A'),og=slot[1],ot=top8.find(t=>t.g===og);
   bn.textContent=ot?ot.name:slot;
@@ -108,7 +108,7 @@ function recompute(){
   renderMU(rnum,win,top8);
  }else{bn.textContent='incompleto';mt.textContent='';document.getElementById('matchups').innerHTML='';}
 }
-function renderThirds(thirds,row){const mog=row?row['1A'][1]:null;let rows='',anyFlag=false;
+function renderThirds(thirds,rnum){const mog=rnum?rowSlot(rnum,'1A')[1]:null;let rows='',anyFlag=false;
  thirds.forEach((t,i)=>{const inT=i<8,mx=t.g===mog&&inT;if(t.flag)anyFlag=true;
   if(i===8)rows+=`<tr class="cutrow"><td colspan="5">corte · top 8 pasan</td></tr>`;
   rows+=`<tr class="${inT?'in':'out'} ${mx?'mexopp':''}"><td>${i+1}</td>
