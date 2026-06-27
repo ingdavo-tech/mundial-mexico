@@ -18,9 +18,9 @@ h1{font-size:18px;margin:0 0 12px}
 .fxko{font-size:11px;color:var(--mut);min-width:48px}
 .fxteams{flex:1;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .fxteams .t{font-weight:600;font-size:14px;flex:1}.fxteams .t.a{text-align:right}
-input.gs{width:40px;height:38px;background:#0d1117;border:1px solid var(--line);color:var(--txt);border-radius:8px;text-align:center;font-size:17px;font-weight:700}
-input.gs:focus{outline:none;border-color:var(--acc)}
-input.gs.filled{border-color:var(--ok);background:#0e1c13}
+.gs{width:54px;height:38px;background:#0d1117;border:1px solid var(--line);color:var(--txt);border-radius:8px;text-align:center;font-size:17px;font-weight:700;-webkit-appearance:none;appearance:none;text-align-last:center;cursor:pointer}
+.gs:focus{outline:none;border-color:var(--acc)}
+.gs.filled{border-color:var(--ok);background:#0e1c13}
 .dash{color:var(--mut);font-size:13px}
 .btnrow{padding:12px 14px}
 button{width:100%;background:var(--acc);color:#fff;border:0;border-radius:10px;padding:13px;cursor:pointer;font-size:15px;font-weight:600}
@@ -67,13 +67,14 @@ document.getElementById('stamp').textContent=STAMP;
 
 function renderFixtures(){
  const host=document.getElementById('fixtures');host.innerHTML='';
+ const opt='<option value=""></option>'+[0,1,2,3,4,5,6,7,8,9].map(n=>`<option>${n}</option>`).join('');
  FIXTURES.forEach(f=>{const r=document.createElement('div');r.className='fxrow';
   r.innerHTML=`<div class="fxko">${f.ko}</div><div class="fxteams">
     <span class="t">${f.h}</span>
-    <span><input class="gs" data-fx="${f.id}" data-s="h" inputmode="numeric"><span class="dash"> – </span><input class="gs" data-fx="${f.id}" data-s="a" inputmode="numeric"></span>
+    <span><select class="gs" data-fx="${f.id}" data-s="h">${opt}</select><span class="dash"> – </span><select class="gs" data-fx="${f.id}" data-s="a">${opt}</select></span>
     <span class="t a">${f.a}</span></div>`;
   host.appendChild(r);});
- host.querySelectorAll('input.gs').forEach(i=>i.addEventListener('input',e=>e.target.classList.toggle('filled',e.target.value!=='')));
+ host.querySelectorAll('.gs').forEach(i=>i.addEventListener('change',e=>e.target.classList.toggle('filled',e.target.value!=='')));
 }
 function ft(g,n){return G[g].find(t=>t[0]===n);}
 function applyAll(){
